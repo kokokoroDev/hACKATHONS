@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            .form-section {
+        background: #F5EDFF;
+        padding: 0px 20px;
+        user-select: none;
+    }
+
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(106,13,173,0.1);
+    }
+
+    .form-title {
+        color: #6A0DAD;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+
+    .hackathon-form {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    label {
+        color: #6A0DAD;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    input, select {
+        padding: 12px 20px;
+        border: 2px solid #E6D6FF;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus {
+        border-color: #FF69B4;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255,105,180,0.2);
+    }           
+
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .tech-option {
+        background: #F8F3FF;
+        padding: 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .tech-option:hover {
+        transform: translateY(-3px);
+    }
+
+    .submit-btn {
+        background: #FFD700;
+        color: #6A0DAD;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        align-self: center;
+    }
+
+    .submit-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+    }
+
+    #teamMembers{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3em;
+    }
+
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .form-container {
+            padding: 25px;
+        }
+        
+    }
+
+    </style>
+</head>
+<body>
+    <section id="registration-form" class="form-section">
+        <div class="form-container">
+            <h2 class="form-title">Hackathon Registration</h2>
+            <form id="registrationForm" class="hackathon-form" action="https://formspree.io/f/xjkybwja" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Leader Name🌟</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Khaoula mahassine" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teamName">Team Name 👯</label>
+                        <input type="text" id="teamName" name="teamName" placeholder="The Code Queens" required>
+                    </div>
+                </div>
+
+                <div class="form-group phone-input">
+                    <label for="phone">Contact Number 📱</label>
+                    <input type="tel" id="phone" name="phone" 
+                           pattern="[0-9]{10}" 
+                           placeholder="0612345678" 
+                           required>
+                </div>
+            
+                <div class="form-group">
+                    <label>Team Members (Max 3) 👩👩👧</label>
+                    <div id="teamMembers">
+                        <input type="email" class="member-email" name="member1" placeholder="member1@email.com" required>
+                        <input type="email" class="member-email" name="member2" placeholder="member2@email.com" required>
+                        <input type="email" class="member-email" name="member3" placeholder="member3@email.com" required>
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <label>Preferred Technologies 💻</label>
+                    <div class="tech-grid">
+                        <label class="tech-option">
+                            <input type="checkbox" name="tech" value="web"> Web Development 🌐
+                        </label>
+                        <label class="tech-option">
+                            <input type="checkbox" name="tech" value="iot"> IoT 🔌
+                        </label>
+                    </div>
+                </div>
+            
+                <button type="submit" class="submit-btn">Submit Application 🚀</button>
+            </form>
+        </div>
+    </section>
+    <script>
+      document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+    })
+    .then(() => {
+        this.reset();
+        // Send message to parent
+        window.parent.postMessage({
+            type: 'notification',
+            message: '🎉 Application submitted successfully!',
+            background: '#6A0DAD',
+            closeModal: true
+        }, '*');
+    })
+    .catch(() => {
+        window.parent.postMessage({
+            type: 'notification',
+            message: '⚠️ Submission failed! Please try again.',
+            background: '#FF4444',
+            closeModal: false
+        }, '*');
+    });
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmpowerHer Hackathon 2024</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+        }
+
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(rgba(211, 54, 190, 0.7), rgba(66, 5, 110, 0.7)), url('tswira.jpg') center/cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            position: relative;
+        }
+
+        .title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .date-venue {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: 1.5px;
+        }
+
+        .cta-button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background-color: #ffd700;
+            color: #6b6b6b;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            color: black;
+        }
+
+        .goal-section {
+            padding: 50px 20px;
+            background-color: white;
+            color: #333;
+        }
+
+        .goal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .goal-title {
+            font-size: 2.2rem;
+            color: #6A0DAD;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: #FF69B4;
+            font-weight: bold;
+        }
+
+        .borderr{
+            height: 0.14em;
+            width: 30%;
+            background-color:#FF69B4 ;
+        }
+        
+        .scroll-down {
+            height: 50px;
+            width: 30px;
+            border: 2px solid white;
+            position: absolute;
+            left: 50%;
+            bottom: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        .scroll-down::before,
+        .scroll-down::after {
+            content: "";
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            height: 10px;
+            width: 10px;
+            transform: translate(-50%, -100%) rotate(45deg);
+            border: 2px solid white;
+            border-top: transparent;
+            border-left: transparent;
+            animation: scroll-down 1s ease-in-out infinite;
+        }
+        .scroll-down::before {
+            top: 30%;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes scroll-down {
+            0% {
+                /* top:20%; */
+                opacity: 0;
+            }
+            30% {
+                opacity: 1;
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                top: 90%;
+                opacity: 0;
+            }
+        }
+
+        .quote {
+            margin-top: 30px;
+            font-style: italic;
+            text-align: center;
+            border-left: 4px solid #FFD700;
+            padding-left: 20px;
+        }
+
+        #specialwords{
+            color: #FF69B4;
+            font-weight: bolder;
+        }
+
+        #footer {
+        background-color: #6A0DAD;
+        color: white;
+        padding: 40px 20px 20px;
+    }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .social-links {
+                align-items: center;
+            }
+            .registration-iframe {
+                height: 1000px;
+            }
+        }
+
+        .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(106, 13, 173, 0.514);
+        z-index: 1000;
+        overflow: hidden;
+    }
+
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #F5EDFF;
+        width: 90%;
+        max-width: 800px;
+        max-height:110vh;
+        border-radius: 20px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+    }
+    .close {
+        position: absolute;
+        right: 25px;
+        top: 15px;  
+        color: #6A0DAD;
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .registration-iframe {
+        width: 100%;
+        height: 80vh;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+    .overlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.308);
+        }
+        .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        font-size: 1.5rem;
+    }
+
+    .social-icon {
+        color: white;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .social-icon:hover {
+        color: #FFD700;
+        transform: translateY(-3px);
+    }
+    .notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #6A0DAD;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    display: none;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(106,13,173,0.3);
+    z-index: 99999;
+}
+
+.notification.show {
+    display: flex;
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification-content {
+    position: relative;
+}
+
+.progress-bar {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 3px;
+    background: #FFD700;
+    width: 100%;
+    animation: progress 3s linear;
+}
+
+@keyframes slideIn {
+    from { bottom: -50px; opacity: 0; }
+    to { bottom: 20px; opacity: 1; }
+}
+
+@keyframes progress {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+.notification-text {
+    font-weight: 500;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="notification" id="main-notification">
+        <div class="notification-content">
+            <span class="notification-text"></span>
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+    <div class="overlay" style="display: none;"></div>
+    <div id="register" style="display: none;" class="container">
+            <iframe src="Form.html" frameborder="0"></iframe>
+            <button id="quit" onclick="hideServices()"><span class="material-symbols-outlined">X</span></button>
+    </div>
+
+    <section class="hero-section">
+        <h1 class="title">Tech For Women Hackathon</h1>
+        <p class="date-venue">Mars 8-10, 2024 | ISFO</p>
+        <button class="cta-button" onclick="location.href='#registration-form'">Inscrivez-vous maintenant</button>
+        <a href="#footer">
+            <div class="scroll-down"></div>
+          </a>
+    </section>
+
+
+    <section class="goal-section">
+        <div class="goal-content">
+            <h2 class="goal-title"><strong><span id="specialwords">8 Mars Hackathon</span></strong>: Empowering Innovation <br>
+                <div class="borderr"></div></h2>
+            
+                <p class="description-text">
+                    Le <span id="specialwords">Hackathon du 8 mars</span> est un événement passionnant conçu pour stimuler l'innovation. Les participants travailleront en <span id="specialwords">équipes de 3 à 5</span> pour créer des solutions technologiques uniques et innovantes basées sur un <span id="specialwords">thème surprise</span>, révélé uniquement au début de l'événement. Au cours d'une <span id="specialwords">semaine</span>, les équipes auront l'occasion de brainstormer, concevoir et développer leurs projets sous <span id="specialwords">pression du temps</span>, tout en collaborant avec des passionnés de technologie partageant les mêmes idées.
+                
+                    Le hackathon mettra les participants au défi de repousser les limites de leur créativité et de leur innovation, en les encourageant à penser différemment. Une fois les projets terminés, les meilleures équipes auront l'opportunité de <span id="specialwords">présenter leurs idées</span> devant un panel de <span id="specialwords">juges experts</span>, et les équipes gagnantes <span id="specialwords">remporteront des prix incroyables</span> pour leurs solutions innovantes.
+                
+                    Que vous soyez un développeur expérimenté ou un passionné débutant, le <span id="specialwords">Hackathon du 8 mars</span> offre la plateforme idéale pour perfectionner vos compétences, apprendre de nouvelles techniques et présenter vos innovations technologiques dans un environnement compétitif et dynamique.
+                </p>
+                <br>
+                <p id="quote" class="quote">"L'avenir de la technologie a besoin de perspectives diversifiées. Soyez acteur du changement !"</p>
+                
+        </div>
+
+    </section>
+
+        <div id="footer">
+            <div class="social-icons">
+                <a href="#" target="_blank" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" target="_blank" class="social-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Tech For Women Hackathon. Celebrating Women in Tech 💪</p>
+            </div>
+        </div>
+
+        <div id="formModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe 
+                    src="Form.html" 
+                    class="registration-iframe"
+                    title="Hackathon Registration Form"
+                ></iframe>
+            </div>
+        </div>
+
+        <script>
+             const modal = document.getElementById("formModal");
+        const btn = document.querySelector(".cta-button");
+        const span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+        document.body.style.overflow = 'hidden'
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+        document.body.style.overflow = ''
+    }
+
+    // Hide modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            document.body.style.overflow = ''
+
+        }
+    }
+    window.addEventListener('message', (e) => {
+    const notification = document.getElementById('main-notification');
+    const notificationText = notification.querySelector('.notification-text');
+    
+    if (e.data.type === 'notification') {
+        notification.style.background = e.data.background;
+        notificationText.textContent = e.data.message;
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            if (e.data.closeModal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = ''
+            }
+        }, 3000);
+    }
+});
+
+        </script>
+</body>
+</html>

@@ -162,17 +162,17 @@
         padding: 0 5px;
     }
     .tech-option {
-        padding: 12px 10px; /* Adjust horizontal padding */
+        padding: 12px 10px;
     }
     .tech-option input[type="checkbox"] {
-        left: 8px; /* Reduce mobile spacing */
+        left: 8px;
         width: 14px;
         height: 14px;
     }
     
     .tech-option span {
-        margin-left: 28px; /* Reduce spacing */
-        font-size: 0.9rem; /* Add font size reduction */
+        margin-left: 28px;
+        font-size: 0.9rem; 
     }
 }
 
@@ -219,7 +219,7 @@
                         </div>
                         <div class="form-group">
                             <label for="teamName">Nom d'équipe 👯</label>
-                            <input type="text" id="teamName" name="teamName" placeholder="The Code Queens" required>
+                            <input type="text" id="teamName" name="teamName" placeholder="Equipe" required>
                         </div>
                     </div>
 
@@ -270,7 +270,6 @@
     })
     .then(() => {
         this.reset();
-        // Send message to parent
         window.parent.postMessage({
             type: 'notification',
             message: '🎉 Application submitted successfully!',
